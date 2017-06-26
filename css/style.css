@@ -1,0 +1,22 @@
+body {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#score-board {
+    align-items: center;
+    color: #FFF;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5em;
+    font-weight: 100;
+    max-width: 100vw;
+    height: 20px;
+    background-color: #5FC148;
+    padding: 20px;
+    margin-bottom: -25px;
+}
+
+#score {
+    font-weight: 400;
+}
