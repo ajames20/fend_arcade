@@ -59,7 +59,12 @@ Player.prototype.handleInput = function(e) {
 
 // Checking for collisions
 const checkCollision = enemy => {
-  if (player.y + 131 >= enemy.y + 90 && player.x + 25 <= enemy.x + 88 && player.y + 73 <= enemy.y + 135 && player.x + 76 >= enemy.x + 11) {
+  if (
+    player.y + 131 >= enemy.y + 90 &&
+    player.x + 25 <= enemy.x + 88 &&
+    player.y + 73 <= enemy.y + 135 &&
+    player.x + 76 >= enemy.x + 11
+  ) {
     console.log('collided');
     player.x = 202;
     player.y = 400;
