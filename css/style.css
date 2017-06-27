@@ -4,7 +4,7 @@ body {
     padding: 0;
 }
 
-#score-board {
+.score-board {
     align-items: center;
     color: #FFF;
     font-family: 'Open Sans', sans-serif;
@@ -17,6 +17,6 @@ body {
     margin-bottom: -25px;
 }
 
-#score {
+.score {
     font-weight: 400;
 }

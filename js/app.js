@@ -1,7 +1,9 @@
+'use strict';
 // Enemies our player must avoid
 var Enemy = function(x, y) {
   this.x = x;
   this.y = y;
+  this.speed = Math.floor(Math.random() * 100) + 100;
   this.sprite = 'images/enemy-bug.png';
 };
 
@@ -11,12 +13,30 @@ Enemy.prototype.update = function(dt) {
   // You should multiply any movement by the dt parameter
   // which will ensure the game runs at the same speed for
   // all computers.
-  this.x = this.x + Math.floor(Math.random() + 5) + 50 * dt;
+  this.x += this.speed * dt;
 
   if (this.x >= 505) {
     this.x = 0;
   }
-  checkCollision(this);
+  // Check for collisions
+  if (
+    player.y + 131 >= this.y + 90 &&
+    player.x + 25 <= this.x + 88 &&
+    player.y + 73 <= this.y + 135 &&
+    player.x + 76 >= this.x + 11
+  ) {
+    score += 1;
+    player.reset();
+    addEnemy(score);
+  }
+
+  // Check hero reaching goal
+  if (player.y <= 0) {
+    score += 1;
+    player.reset();
+    addEnemy(score);
+    scoreBoard.innerHTML = score;
+  }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -45,41 +65,20 @@ Player.prototype.render = function() {
 // Checking input and location on the board to stop player from leaving board
 Player.prototype.handleInput = function(e) {
   if (e === 'up' && this.y > 0) {
-    this.y = this.y - 82;
+    this.y = this.y - 83;
   } else if (e === 'down' && this.y < 400) {
-    this.y = this.y + 82;
+    this.y = this.y + 83;
   }
   if (e === 'left' && this.x > 100) {
-    this.x = this.x - 100;
+    this.x = this.x - 101;
   }
   if (e === 'right' && this.x < 400) {
-    this.x = this.x + 100;
+    this.x = this.x + 101;
   }
 };
-
-// Checking for collisions
-const checkCollision = enemy => {
-  if (
-    player.y + 131 >= enemy.y + 90 &&
-    player.x + 25 <= enemy.x + 88 &&
-    player.y + 73 <= enemy.y + 135 &&
-    player.x + 76 >= enemy.x + 11
-  ) {
-    console.log('collided');
-    player.x = 202;
-    player.y = 400;
-    score += 1;
-    addEnemy(score);
-  }
-  // Check hero reaching goal
-  if (player.y <= 0) {
-    player.x = 202.5;
-    player.y = 383;
-    console.log('you made it!');
-    score += 1;
-    addEnemy(score);
-    scoreBoard.innerHTML = score;
-  }
+Player.prototype.reset = function() {
+  this.x = 202;
+  this.y = 400;
 };
 
 // Add enemy as score increases or as collisions happen
@@ -88,7 +87,7 @@ const addEnemy = numEnemies => {
   allEnemies.length = 0;
   // Load new set of enemies
   for (var i = 0; i <= numEnemies; i++) {
-    let enemy = new Enemy(Math.random() * 200 + 50, Math.random() * 256);
+    let enemy = new Enemy(0, Math.floor(Math.random() * 200) + 40);
     allEnemies.push(enemy);
   }
 };
@@ -99,9 +98,9 @@ const addEnemy = numEnemies => {
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 const allEnemies = [];
-const enemy = new Enemy(Math.random() * 200 + 50, Math.random() * 256);
+const enemy = new Enemy(0, Math.floor(Math.random() * 200) + 40);
 const player = new Player(202, 400);
-const scoreBoard = document.getElementById('score');
+const scoreBoard = document.querySelector('.score');
 let score = 0;
 
 allEnemies.push(enemy);

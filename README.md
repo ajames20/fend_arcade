@@ -1,5 +1,9 @@
 # Frontend Nanodegree Arcade-Game
 
+## How to Run
+
+Run index.html in your browser of choice.
+
 ## GamePlay
 
 The goal of this game is to reach the water without running in to an enemy. Your score will increase if you make it to the water, and the level will increase(enemy will be added). If you have a collision with an enemy another enemy will be added.
